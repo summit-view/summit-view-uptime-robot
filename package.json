@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/summit-view/summit-view-uptime-robot#readme",
   "dependencies": {
-    "uptime-robot-api": "^1.0.5"
+    "uptime-robot": "^1.1.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
