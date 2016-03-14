@@ -1,0 +1,30 @@
+{
+  "name": "summit-view-uptime-robot",
+  "version": "0.0.1",
+  "description": "Uptime Robot panel for Summit View",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/summit-view/summit-view-uptime-robot.git"
+  },
+  "keywords": [
+    "summit-view"
+  ],
+  "author": "Jens Nilsson <jens@jensnilsson.nu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/summit-view/summit-view-uptime-robot/issues"
+  },
+  "homepage": "https://github.com/summit-view/summit-view-uptime-robot#readme",
+  "dependencies": {
+    "uptime-robot-api": "^1.0.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-stylus": "^2.3.1"
+  }
+}
