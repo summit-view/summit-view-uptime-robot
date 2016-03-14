@@ -1,6 +1,6 @@
 {
   "name": "summit-view-uptime-robot",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Uptime Robot panel for Summit View",
   "main": "index.js",
   "scripts": {
