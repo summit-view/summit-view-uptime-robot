@@ -35,8 +35,9 @@ module.exports = function(s) {
     summit = s;
 
     // emit the profiles on new connection
-    summit.io.on('connection', function() {
-        summit.io.emit('monitors', monitors);
+    summit.io.on('connection', function(socket) {
+        socket.emit('monitors', monitors);
+        socket.emit('loaded');
     });
 
 
@@ -60,6 +61,16 @@ module.exports = function(s) {
 
             return {
                 id: id,
+                branding: {
+                    icon: {
+                        fa: 'server',
+                    },
+                    color: {
+                        background: 'uptime-robot',
+                        icon: 'clouds',
+                        'text': 'clouds',
+                    },
+                }
             };
         });
 };
@@ -73,9 +84,11 @@ module.exports.style = __dirname + '/public/style.css';
 module.exports.onSettings = function(settings) {
     if( settings.apikey ) {
         client = new Client( settings.apikey );
+        summit.io.emit('loaded');
     }
     else {
         client = false;
+        summit.io.emit('loading', 'No API key...');
     }
 
     updateMonitors();
