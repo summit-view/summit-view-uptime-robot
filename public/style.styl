@@ -1,6 +1,16 @@
 .summit-view-uptime-robot
-    .monitor
-        float left
+    .flag
+        padding 10px
+        line-height 32px
+        .summit-view-uptime-robot-monitor
+        .summit-view-uptime-robot-uptime
+            display inline
+            vertical-align middle
+        .summit-view-uptime-robot-uptime
+            float right
+            font-size 2em
+            &:after
+                content '%'
     .pulse
         animation summit-view-uptime-robot-ring-pulse 1s ease
         animation-iteration-count infinite

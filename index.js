@@ -1,14 +1,14 @@
 var Client = require('uptime-robot');
 
 var id = 'summit-view-uptime-robot';
-var config = {}, summit, client, monitors = [], timeout;
+var config = {}, summit, client, monitors = [], timeout, settings;
 
 var scheduleUpdate = function() {
     var lowest = 300;
 
     for (var i = 0; i < monitors.length; i++) {
         var interval = ( monitors[i].interval && parseInt(monitors[i].interval) ) ? parseInt(monitors[i].interval) : 300;
-        lowest = ( interval < lowest ) ? intervak : lowest;
+        lowest = ( interval < lowest ) ? interval : lowest;
     }
 
     timeout = setTimeout(updateMonitors, lowest * 1000);
@@ -16,7 +16,9 @@ var scheduleUpdate = function() {
 
 var updateMonitors = function() {
     if( client ) {
-        client.getMonitors()
+        var customUptimeRatio = settings.ratiodays ? [settings.ratiodays] : [];
+
+        client.getMonitors({customUptimeRatio: customUptimeRatio})
             .then(function(ms) {
                 monitors = ms;
                 summit.io.emit('monitors', monitors);
@@ -42,8 +44,8 @@ module.exports = function(s) {
 
 
     return summit.settings()
-        .then(function(settings) {
-            settings = settings || {};
+        .then(function(s) {
+            settings = s || {};
 
             if( !config.apiKey ) {
                 summit.registerSetting({
@@ -53,6 +55,14 @@ module.exports = function(s) {
                     value: settings.apikey || '',
                 });
             }
+
+            summit.registerSetting({
+                name: 'ratiodays',
+                label: 'Uptime ratio days',
+                type: 'number',
+                value: settings.ratiodays || '',
+                instructions: 'Number of days to calculate the uptime ratio for.'
+            });
 
             if( config.apiKey || settings.apikey ) {
                 client = new Client( config.apiKey || settings.apikey );
@@ -81,7 +91,9 @@ module.exports.client = __dirname + '/lib/client.js';
 
 module.exports.style = __dirname + '/public/style.css';
 
-module.exports.onSettings = function(settings) {
+module.exports.onSettings = function(s) {
+    settings = s;
+
     if( settings.apikey ) {
         client = new Client( settings.apikey );
         summit.io.emit('loaded');
