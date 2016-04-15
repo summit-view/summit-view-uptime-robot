@@ -61,7 +61,7 @@ module.exports = function(s) {
                 label: 'Uptime ratio days',
                 type: 'number',
                 value: settings.ratiodays || '',
-                instructions: 'Number of days to calculate the uptime ratio for.'
+                instructions: 'Number of days to calculate the uptime ratio for. Leave empty for alltime.'
             });
 
             if( config.apiKey || settings.apikey ) {
